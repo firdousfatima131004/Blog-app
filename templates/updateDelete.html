@@ -61,23 +61,27 @@
                </div>
           </div>
      </nav>
-
      {% for i in data %}
-     <div class="container-fluid">
-          <div class="col-md-4">
-               <div class="row">
-                    <div class="card" style="width: 18rem;">
-                         <img src="{{ i.img.url }}" class="card-img-top" alt="image">
-                         <div class="card-body">
-                             <h5 class="card-title">{{ i.blog_name }}</h5>
-                             <p class="card-text">{{ i.blog_desc }}</p>
-                             <a href="{{ i.url }}" class="btn btn-primary">Read more</a>
-                         </div>
-                     </div>
-               </div>
-          </div>
-     </div>
-     {% endfor %}
+<div class="container-fluid">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="card" style="width: 18rem;">
+                <!-- Remove the 'static/' part from the image path -->
+                <img src="{{ url_for('static', filename=i.img.split('static/')[1]) }}" class="card-img-top" alt="image">
+                <!-- "  Plain-text-- cline/imag.jpg   encoded=== client/ %  client%img.jpg      " -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.blog_name }}</h5>
+                    <p class="card-text">{{ i.blog_desc }}</p>
+                    <a href="{{ i.url }}" class="btn btn-primary">Read more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+     
  
 
 

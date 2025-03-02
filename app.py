@@ -5,6 +5,8 @@ from database import session as db_session
 
 app =  Flask(__name__)
 
+
+#home page / blog showing
 @app.route('/')
 def home():
     all_data = db_session.query(Blog).all()
@@ -13,10 +15,14 @@ def home():
           db_session.commit()
     return render_template('index.html' , data = all_data)
 
+
+# add blog 
 @app.route("/add_blog/" , methods = [ 'GET','POST'])
 def add():
     return render_template('addBlog.html')
 
+
+# adding route
 @app.route('/adding_data/', methods = ['GET', 'POST'])
 def adding():
     if request.method == 'POST':
@@ -40,7 +46,9 @@ def adding():
          db_session.rollback()
          return render_template('addBlog.html' ,error=f"An error occurred")
      
-     
+
+
+#delete and update    
 @app.route('/updateDelete/')
 def pages():
     all_data = db_session.query(Blog).all()
@@ -51,6 +59,8 @@ def pages():
     return render_template('updateDelete.html' , data = all_data)
     
 
+
+# deleting
 @app.route('/delete/<int:id>')
 def delete(id):
     data = db_session.query(Blog).get(id)
